@@ -24,7 +24,11 @@ todo
 todo
 
 #### Setup mobile generator sample app
-todo
+The mobile generator app will generate random sample data with random GPS locations.
+
+Steps
+1. Create docker image: `docker build -t mobile_generator .`
+2. Run Docker image with parameters: `docker run -v c:/temp:/var/tmp --rm mobile_generator /var/tmp 20`
 
 
 ### Usage and configuration
@@ -36,5 +40,9 @@ todo
 todo
 
 #### Deploy Apache Spark job
-todo
+The following Apache Spark job will determine the current geographic location of all mobile phones sending data.
+It uses Spark real time streaming KMeans clustering ML technique to do in real time the ML learning and prediction
+to identify the geographic locations. This will allow, in real time to analyze large mobile data loads and see in which
+regions the users are clustered.
+![](images/web-3120321_1920.png)
 
