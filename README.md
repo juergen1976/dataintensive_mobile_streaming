@@ -66,6 +66,9 @@ The mobile generator app will generate random sample data with random GPS locati
 1. Install local Apache Spark and set the SPARK_HOME environment variable
 2. `$SPARK_HOME/bin/docker-image-tool.sh -r juergen1976 -t v3.1.2-j14 -p kubernetes/dockerfiles/spark/bindings/python/Dockerfile -b java_image_tag=14-slim build`
 
+#### 6. Create Kubernetes service account for Spark
+`kubectl create serviceaccount spark`
+
 ### Usage and configuration
 
 #### 0. Prerequisites
@@ -87,7 +90,8 @@ On Kubernetes environment
 4. Use the Nifi workflow as described in the screenshot
 ![](images/NifiControl.png)
 
-#### 3. Build and deploy Apache Spark job
+#### 3. Deploy Apache Spark job
+Example on Windows, adapt to local OS system
 `$SPARK_HOME/bin/spark-submit \
 --master k8s://https://kubernetes.docker.internal:6443 \
 --deploy-mode cluster \
@@ -96,7 +100,9 @@ On Kubernetes environment
 --conf spark.kubernetes.authenticate.driver.serviceAccountName=spark \
 --conf spark.executor.instances=5 \
 --conf spark.kubernetes.container.image=juergen1976/spark:v3.1.2-j14 \
-local:///opt/spark/examples/jars/spark-examples_2.12-3.1.2.jar`
+C:/Projects/DataEngineering/StreamApp/SparkStreamApp/target/scala-2.12/sparkstreaminganalysemobiledata_2.12-0.1.jar`
+
+more information how to deploy spark jobs: https://spark.apache.org/docs/2.4.5/running-on-kubernetes.html
 
 The mentioned Apache Spark job will determine the current geographic location of all mobile phones sending data.
 It uses Spark real time streaming KMeans clustering ML technique to do in real time the ML learning and prediction
