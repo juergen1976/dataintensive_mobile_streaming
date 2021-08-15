@@ -19,13 +19,10 @@ object SparkStreamingConsumeKafka {
 
     df.printSchema()
 
-    val mobile_data_row = df.selectExpr("CAST(value AS STRING)")
+    val mobileNoAgg = df.select("value")
+    val query = mobileNoAgg.writeStream.format("console").start()
 
-    mobile_data_row.writeStream
-      .format("console")
-      .outputMode("complete")
-      .start()
-      .awaitTermination()
+    query.awaitTermination()
 
     // TODO: Do KMeans clustering of mobile longitude and latitude to generate report
   }
