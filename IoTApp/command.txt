@@ -1,0 +1,1 @@
+kubectl apply -f mobile_generator.yaml

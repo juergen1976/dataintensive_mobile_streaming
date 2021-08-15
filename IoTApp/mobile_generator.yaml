@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mobilegenerator
+spec:
+  volumes:
+    - name: shared-volume
+      persistentVolumeClaim:
+        claimName: shared-volume
+  # A simple pod is enough to for the mobile data generation
+  containers:
+    - name: mobilegenerator
+      volumeMounts:
+        - mountPath: "/var/tmp"
+          name: shared-volume
+      image: juergen1976/mobile_generator
+      args: ["/var/tmp", "20"]

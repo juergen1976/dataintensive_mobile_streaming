@@ -1,0 +1,7 @@
+kubectl run my-kafka-cluster-client --restart='Never' --image docker.io/bitnami/kafka:2.8.0-debian-10-r61 --namespace default --command -- sleep infinity
+
+kubectl exec --tty -i my-kafka-cluster-client --namespace default -- bash
+
+kafka-console-producer.sh --broker-list my-kafka-cluster-0.my-kafka-cluster-headless.default.svc.cluster.local:9092 --topic mobile_data
+
+kafka-console-consumer.sh --bootstrap-server my-kafka-cluster.default.svc.cluster.local:9092 --topic mobile_data --from-beginning

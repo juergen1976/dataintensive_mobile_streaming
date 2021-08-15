@@ -1,0 +1,1 @@
+helm install -f values.yaml my-nifi-cluster cetic/nifi

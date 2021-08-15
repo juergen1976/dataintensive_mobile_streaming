@@ -1,0 +1,3 @@
+# We provide the topic 'mobile_data' for our Apache Nifi - Kafka - Spark communication
+provisioning:
+  topics: ["mobile_data"]

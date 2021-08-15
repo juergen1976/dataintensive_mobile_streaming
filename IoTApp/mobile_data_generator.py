@@ -29,7 +29,7 @@ def randomAccelerometerLocation():
 # We write continuously every 10 seconds a new file, which simulates a new batch of data
 while True:
     # Write one batch file with data
-    filename = os.path.join(path, "mobile_data_" + str(time.time()) + ".csv")
+    filename = os.path.join(path, "mobile_data_" + str(time.time_ns()) + ".csv")
     with open(filename, mode='w') as mobile_data_file:
         mobile_writer = csv.writer(mobile_data_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
         mobile_writer.writerow(["timepoint", "deviceId", "acceloX","acceloY","acceloZ", "latitude", "longitude","locked"])

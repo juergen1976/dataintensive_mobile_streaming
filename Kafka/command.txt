@@ -1,0 +1,1 @@
+helm install -f values.yaml my-kafka-cluster bitnami/kafka

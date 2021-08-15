@@ -1,0 +1,14 @@
+# We run Apache Nifi with the root account
+securityContext:
+  runAsUser: 0
+# We mount our persistent volume store
+extraVolumeMounts:
+  - name: nifi-volume
+    mountPath: "/home/nifi"
+    readOnly: false
+extraVolumes:
+  - name: nifi-volume
+    persistentVolumeClaim:
+      claimName: shared-volume
+service:
+  httpPort: 8080
