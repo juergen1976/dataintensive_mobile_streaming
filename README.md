@@ -64,7 +64,7 @@ The mobile generator app will generate random sample data with random GPS locati
 
 #### 5. Build Spark container job
 1. Install local Apache Spark and set the SPARK_HOME environment variable
-2. `$SPARK_HOME/bin/docker-image-tool.sh -r juergen1976 -t v3.1.2-j14 -p kubernetes/dockerfiles/spark/bindings/python/Dockerfile -b java_image_tag=14-slim build`
+2. `$SPARK_HOME/bin/docker-image-tool.sh -r juergen1976 -t 1.0 build`
 
 #### 6. Create Kubernetes service account for Spark
 `kubectl create serviceaccount spark`
@@ -92,15 +92,13 @@ On Kubernetes environment
 
 #### 3. Deploy Apache Spark job
 Example on Windows, adapt to local OS system
-`$SPARK_HOME/bin/spark-submit \
---master k8s://https://kubernetes.docker.internal:6443 \
---deploy-mode cluster \
---name spark-pi \
---class org.apache.spark.examples.SparkPi \
---conf spark.kubernetes.authenticate.driver.serviceAccountName=spark \
---conf spark.executor.instances=5 \
---conf spark.kubernetes.container.image=juergen1976/spark:v3.1.2-j14 \
-C:/Projects/DataEngineering/StreamApp/SparkStreamApp/target/scala-2.12/sparkstreaminganalysemobiledata_2.12-0.1.jar`
+`bin/spark-submit --master k8s://https://kubernetes.docker.internal:6443 \
+ --deploy-mode cluster --name spark-pi \
+ --jars https://repo1.maven.org/maven2/org/apache/spark/spark-sql-kafka-0-10_2.12/3.1.2/spark-sql-kafka-0-10_2.12-3.1.2.jar,https://repo1.maven.org/maven2/org/apache/kafka/kafka-clients/2.8.0/kafka-clients-2.8.0.jar,https://repo1.maven.org/maven2/org/apache/spark/spark-token-provider-kafka-0-10_2.12/3.1.2/spark-token-provider-kafka-0-10_2.12-3.1.2.jar,https://repo1.maven.org/maven2/org/apache/commons/commons-pool2/2.11.0/commons-pool2-2.11.0.jar \
+ --class SparkStreamingConsumeKafka \
+ --conf spark.kubernetes.authenticate.driver.serviceAccountName=spark \
+ --conf spark.executor.instances=5 \
+ --conf spark.kubernetes.container.image=juergen1976/spark:1.0 https://github.com/juergen1976/dataintensive_mobile_streaming/raw/master/SparkSubmit/SparkStreamingAnalyseMobileData.jar`
 
 more information how to deploy spark jobs: https://spark.apache.org/docs/2.4.5/running-on-kubernetes.html
 
