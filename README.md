@@ -92,7 +92,7 @@ On Kubernetes environment
 
 #### 3. Optional (when code changes) - Build spark application
 In SparkStreamApp project:
-`sbt package`
+`sbt package` This will build SparkStreamingAnalyseMobileData.jar
 
 #### 4. Deploy Apache Spark job
 Example on Windows, adapt to local OS system
