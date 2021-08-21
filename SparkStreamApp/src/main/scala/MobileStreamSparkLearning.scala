@@ -29,6 +29,9 @@ object MobileData {
   }
 }
 
+/**
+ * Main object to run
+ */
 object MobileStreamSparkLearning {
   val spark = SparkSession.builder()
     .appName("MobileStreamLearner")
