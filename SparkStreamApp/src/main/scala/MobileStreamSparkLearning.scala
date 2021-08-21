@@ -35,9 +35,10 @@ object MobileStreamSparkLearning {
     .master("local[*]")
     .getOrCreate()
 
+  // We batch the incoming data every 5 seconds
   val ssc = new StreamingContext(spark.sparkContext, Seconds(5))
   val kafkaParams: Map[String, Object] = Map(
-    "bootstrap.servers" -> "localhost:9092",
+    "bootstrap.servers" -> "my-kafka-cluster.default.svc.cluster.local:9092",
     "key.serializer" -> classOf[StringSerializer], // send data to kafka
     "value.serializer" -> classOf[StringSerializer],
     "group.id" -> "use_a_separate_group_id_for_each_stream",
