@@ -3,6 +3,9 @@
 ### Architecture of the multi cluster setup for large data volume scaling
 
 The application architecture is able to do realtime Machine Learning analytics on large scale data ingestion.
+The architecture is ready to process millions of data points, each component could be scaled in the cluster.
+
+As demonstration, a MobileGenerator Data is producing many CSV files to simulate real and not optimal data ingestion scenarios.
 
 ![](images/ArchitectureDataArchitecture-Project.png)
 
@@ -88,6 +91,9 @@ On Kubernetes environment
 2. In the operation panel window, import the file ReadFilesAndPublishToKafka.xml
 3. Drag and drop the imported template from the template menu to the canvas
 4. Use the Nifi workflow as described in the screenshot
+   1. Start The GetFile, The SplitRecord and the PublishKafka processor
+   2. See how the data flows from processor to processor over the queues
+   3. If a prpcessor is not started, the data is queued (could be viewed with tight click && list queue)
 ![](images/NifiControl.png)
 
 #### 3. Optional (when code changes) - Build spark application
