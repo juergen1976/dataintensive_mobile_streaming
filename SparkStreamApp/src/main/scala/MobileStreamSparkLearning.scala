@@ -42,6 +42,7 @@ object MobileStreamSparkLearning {
   val ssc = new StreamingContext(spark.sparkContext, Seconds(5))
   val kafkaParams: Map[String, Object] = Map(
     "bootstrap.servers" -> "my-kafka-cluster.default.svc.cluster.local:9092",
+    //"bootstrap.servers" -> "localhost:9092",
     "key.serializer" -> classOf[StringSerializer], // send data to kafka
     "value.serializer" -> classOf[StringSerializer],
     "group.id" -> "use_a_separate_group_id_for_each_stream",
@@ -71,7 +72,7 @@ object MobileStreamSparkLearning {
     val trainingMobileDataStream = processedModelStream.map(mobileData => Vectors.dense(Array(0.0, mobileData.longitude, mobileData.longitude)))
 
     // We generate from the train data stream a test data stream, but we map to constant value to make a prediction from a consistent poinz of view
-    val testingMobileStream = processedModelStream.map(mobileData => (1.0, Vectors.dense(Array(0.0, 55.0, 45.0))))
+    val testingMobileStream = processedModelStream.map(mobileData => (Vectors.dense(Array(0.0, 55.0, 45.0))))
 
     // Build the k-means model for clustering
     val kMeansModel = new StreamingKMeans()
@@ -83,14 +84,15 @@ object MobileStreamSparkLearning {
     kMeansModel.trainOn(trainingMobileDataStream)
 
     // Do predictions on the test data
-    val predictions = kMeansModel.predictOnValues(testingMobileStream)
-    val printPredictions = predictions.map(prediction => "New Prediction is: " + prediction.toString())
+    val predictions = kMeansModel.predictOn(testingMobileStream)
+    predictions.print()
+    val printPredictions = predictions.map(prediction => "New cluster prediction is: " + prediction.toString())
 
     // We print each prediction of the prediction stream into the console
     // This information could be used for a report in later activities
-    println("Predictions will start to stream")
+    println("Predictions will start to stream: ")
     printPredictions.foreachRDD(rdd => {
-      rdd.collect().foreach(content => print("Prediction is: " + content.toString))
+      rdd.collect().foreach(content => print(content + "\n"))
     })
 
     // Start on streaming context and wait for termination
