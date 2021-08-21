@@ -106,9 +106,13 @@ Example on Windows, adapt to local OS system
 
 more information how to deploy spark jobs: https://spark.apache.org/docs/2.4.5/running-on-kubernetes.html
 
-The mentioned Apache Spark job will determine the current geographic location of all mobile phones sending data.
+The mentioned Apache Spark job will determine the current geographic location via a cluster prediction of all mobile phones sending data.
 It uses Spark real time streaming KMeans clustering ML technique to do in real time the ML learning and prediction
 to identify the geographic locations. This will allow, in real time to analyze large mobile data loads and see in which
 regions the users are clustered.
+
+The predicted cluster for a specific location is printed in the pod console (could be used in an report). With this information
+the defined location is compared to million of devices.
+
 ![](images/web-3120321_1920.png)
 

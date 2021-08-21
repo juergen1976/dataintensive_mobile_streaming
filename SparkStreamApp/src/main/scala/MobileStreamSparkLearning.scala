@@ -69,7 +69,7 @@ object MobileStreamSparkLearning {
     val processedModelStream = processedValueStream.map(value => MobileData.parseStringValue(value))
 
     // From the mobile data, we generate now the continuous learning data
-    val trainingMobileDataStream = processedModelStream.map(mobileData => Vectors.dense(Array(0.0, mobileData.longitude, mobileData.longitude)))
+    val trainingMobileDataStream = processedModelStream.map(mobileData => Vectors.dense(0.0, mobileData.longitude, mobileData.latitude))
 
     // We generate from the train data stream a test data stream, but we map to constant value to make a prediction from a consistent poinz of view
     val testingMobileStream = processedModelStream.map(mobileData => (Vectors.dense(Array(0.0, 55.0, 45.0))))
@@ -86,7 +86,7 @@ object MobileStreamSparkLearning {
     // Do predictions on the test data
     val predictions = kMeansModel.predictOn(testingMobileStream)
     predictions.print()
-    val printPredictions = predictions.map(prediction => "New cluster prediction is: " + prediction.toString())
+    val printPredictions = predictions.map(prediction => "New cluster prediction for point 55.0 and 45.0 is: " + prediction.toString())
 
     // We print each prediction of the prediction stream into the console
     // This information could be used for a report in later activities
