@@ -90,7 +90,11 @@ On Kubernetes environment
 4. Use the Nifi workflow as described in the screenshot
 ![](images/NifiControl.png)
 
-#### 3. Deploy Apache Spark job
+#### 3. Optional (when code changes) - Build spark application
+In SparkStreamApp project:
+`sbt package`
+
+#### 4. Deploy Apache Spark job
 Example on Windows, adapt to local OS system
 `bin/spark-submit --master k8s://https://kubernetes.docker.internal:6443 \
  --deploy-mode cluster --name spark-pi \
