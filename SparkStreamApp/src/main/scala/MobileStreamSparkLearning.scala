@@ -51,7 +51,7 @@ object MobileStreamSparkLearning {
     "enable.auto.commit" -> false.asInstanceOf[Object]
   )
 
-  val kafkaTopic = "mobile"
+  val kafkaTopic = "mobile_data"
 
   def readFromKafka() = {
     val topics = Array(kafkaTopic)
