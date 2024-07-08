@@ -110,7 +110,7 @@ Example on Windows, adapt to local OS system
  --conf spark.executor.instances=5 \
  --conf spark.kubernetes.container.image=juergen1976/spark:1.0 https://github.com/juergen1976/dataintensive_mobile_streaming/raw/master/SparkSubmit/SparkStreamingAnalyseMobileData.jar`
 
-more information how to deploy spark jobs: https://spark.apache.org/docs/2.4.5/running-on-kubernetes.html
+More information how to deploy spark jobs: https://spark.apache.org/docs/2.4.5/running-on-kubernetes.html
 
 The mentioned Apache Spark job will determine the current geographic location via a cluster prediction of all mobile phones sending data.
 It uses Spark real time streaming KMeans clustering ML technique to do in real time the ML learning and prediction
